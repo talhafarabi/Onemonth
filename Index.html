@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secure Access</title>
+
+  <style>
+    body {
+      background: black;
+      color: #00ffcc;
+      font-family: monospace;
+      text-align: center;
+      padding-top: 80px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px;
+    }
+
+    #message, #secondLock, #certContainer {
+      display: none;
+      margin-top: 30px;
+    }
+
+    /* Certificate reveal animation */
+    #certContainer {
+      width: 320px;
+      margin: auto;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 2s ease;
+    }
+
+    #certContainer.show {
+      max-height: 600px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🔐 SYSTEM LOCKED</h1>
+<p>Hint: the lil ones 🐾</p>
+
+<input type="password" id="pass">
+<button onclick="checkPass()">Unlock</button>
+
+<p id="status"></p>
+
+<div id="message"></div>
+
+<!-- Second Lock -->
+<div id="secondLock">
+  <h2>🔒 Restricted Access</h2>
+  <p>Only for us 😏</p>
+
+  <input type="password" id="pass2">
+  <button onclick="checkSecond()">Unlock</button>
+
+  <p id="status2"></p>
+</div>
+
+<!-- Certificate Reveal -->
+<div id="certContainer">
+  <p>Decrypting final file...</p>
+  <img src="certificate.png">
+</div>
+
+<!-- Voice -->
+<audio id="voice" src="voice.mp3"></audio>
+
+<script>
+function checkPass() {
+  let pass = document.getElementById("pass").value;
+
+  if(pass === "proximacenturyandcoco") {
+    document.getElementById("status").innerText = "Decrypting...";
+
+    setTimeout(showMessage, 2000);
+  } else {
+    document.getElementById("status").innerText = "Access Denied 😒";
+  }
+}
+
+function showMessage() {
+  document.getElementById("message").style.display = "block";
+
+  let texts = [
+    "Access Granted...",
+    "Hey you...",
+    "imma try ma best to not sound cliche",
+    "bt guess I'm doin many beyond ma norm stuffs these days",
+    "honestly speaking before meeting u I never knew someone's gonna lubh me like ts someday",
+    "It’s been one month already.",
+    "Lowk crazy.",
+    "I didn’t expect u.",
+    "But somehow… u happened.",
+    "and I'm always grateful to u for being with me in ma gud and bad times",
+    "holding ma hand and saying I'm always with u",
+    "honestly ur ma bsf first as I've told u many times",
+    "You’re the calm in my chaotic life.",
+    "And yeah… that means a lot.",
+    "And im thankful to Allah for having u in ma life"
+  ];
+
+  let i = 0;
+  let msg = document.getElementById("message");
+
+  let interval = setInterval(() => {
+    if(i < texts.length) {
+      msg.innerHTML += texts[i] + "<br>";
+      i++;
+    } else {
+      clearInterval(interval);
+
+      // play voice
+      document.getElementById("voice").play();
+
+      // show second lock
+      setTimeout(() => {
+        document.getElementById("secondLock").style.display = "block";
+      }, 2500);
+    }
+  }, 1500);
+}
+
+function checkSecond() {
+  let pass2 = document.getElementById("pass2").value;
+
+  if(pass2 === "oursecret") {
+    document.getElementById("status2").innerText = "Access Granted 😏";
+
+    setTimeout(() => {
+      document.getElementById("certContainer").style.display = "block";
+
+      setTimeout(() => {
+        document.getElementById("certContainer").classList.add("show");
+      }, 300);
+
+    }, 1000);
+
+  } else {
+    document.getElementById("status2").innerText = "Nah… try again 😭";
+  }
+}
+</script>
+
+</body>
+  </html>
